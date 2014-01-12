@@ -54,6 +54,9 @@ char* strtok_r(char *str, const char *delim, char **nextp) {
 }
 #endif
 
+char *create_android = "CREATE TABLE android_metadata (locale TEXT DEFAULT 'en_US')";
+char *insert_android = "INSERT INTO android_metadata VALUES ('en_US')";
+
 char *create_chars = "CREATE TABLE chars(char_index INTEGER PRIMARY KEY ASC,\n"
                      "                   chchar TEXT UNIQUE, zh INTEGER,\n"
                      "                   big5 INTEGER, hkscs INTEGER,\n"
@@ -191,6 +194,8 @@ int main(int argc, char **argv) {
                     SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL);
     sqlite3_exec(db, "PRAGMA foreign_keys = ON;", NULL, NULL, NULL);
     sqlite3_exec(db, "BEGIN", NULL, NULL, NULL);
+    sqlite3_exec(db, create_android, NULL, NULL, NULL);
+    sqlite3_exec(db, insert_android, NULL, NULL, NULL);
     sqlite3_exec(db, create_chars, NULL, NULL, NULL);
     sqlite3_exec(db, create_codes, NULL, NULL, NULL);
 
