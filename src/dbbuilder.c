@@ -54,16 +54,16 @@ char* strtok_r(char *str, const char *delim, char **nextp) {
 }
 #endif
 
-char *create_chars = "CREATE TABLE chars(char_index INTEGER PRIMARY KEY ASC,\n"
+char *create_chars = "CREATE TABLE chars(_id INTEGER PRIMARY KEY ASC,\n"
                      "                   chchar TEXT UNIQUE, zh INTEGER,\n"
                      "                   big5 INTEGER, hkscs INTEGER,\n"
                      "                   zhuyin INTEGER, kanji INTEGER,\n"
                      "                   hiragana INTEGER, katakana INTEGER,\n"
                      "                   punct INTEGER, symbol INTEGER);";
-char *create_codes = "CREATE TABLE codes(char_index INTEGER, version INTEGER,\n"
+char *create_codes = "CREATE TABLE codes(_id INTEGER, version INTEGER,\n"
                      "                   code TEXT, frequency INTEGER,\n"
-                     "                   FOREIGN KEY(char_index) REFERENCES chars(char_index));";
-char *select_index = "SELECT char_index FROM chars WHERE chchar='%q';";
+                     "                   FOREIGN KEY(_id) REFERENCES chars(_id));";
+char *select_index = "SELECT _id FROM chars WHERE chchar='%q';";
 char *insert_chars = "INSERT INTO chars VALUES(%d, '%q', %d, %d, %d, %d,\n"
                      "                         %d, %d, %d, %d, %d);";
 char *insert_codes = "INSERT INTO codes VALUES(%d, %d, '%q', %d);";
